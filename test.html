@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+     
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+
+    <script>
+      const canvas = document.getElementById("myCanvas");
+      const ctx = canvas.getContext("2d");
+
+      // Define the grid size and cell size
+      const gridSize = 10;
+      const cellSize = canvas.width / gridSize;
+
+      // Function to draw a square at the specified x, y coordinates
+      function drawSquare(x, y, sideLength) {
+        ctx.beginPath();
+        ctx.rect(x, y, sideLength, sideLength);
+        
+        ctx.stroke();
+      }
+
+      // Loop through the grid and draw the shapes
+      for (let x = 0; x < gridSize; x++) {
+        for (let y = 0; y < gridSize; y++) {
+          const xPos = x * cellSize;
+          const yPos = y * cellSize;
+          // Draw a square
+          drawSquare(xPos + 2, yPos + 2, cellSize - 4);
+        }
+      }
+    </script>
+  </body>
+</html>

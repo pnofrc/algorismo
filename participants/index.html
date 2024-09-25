@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        let ip = ''
+    </script>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <script src="./Tone.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.11/Tone.js"></script> -->
+
+        <script src="./d3.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" href="style.css"> -->
+        <style>
+
+            @font-face {
+                font-family: 'font';
+                src: url('../font.ttf');
+            }
+            body{
+                font-family: 'font';
+                width: 100%;
+                height: 100vh;
+                background-color: black;
+                -webkit-transition: background-color 100ms linear; 
+                -ms-transition: background-color 100ms linear;
+                transition: background-color 100ms linear;
+                color: white;
+                margin: 0;
+                padding: 0;
+            }
+
+            
+            #langQuest,#langQuest div{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #langQuest{
+                flex-direction: column;
+                flex-direction: column;
+                height: 100%;
+                z-index: 900;
+                position: relative;
+                /* margin-bottom: 3rem; */
+                bottom: 3rem;
+                        }
+
+            #langQuest div{
+                width: 100%;
+                justify-content: space-evenly;
+            }
+
+            h1{
+                font-size: 5rem;
+            }
+
+            button{
+                font-size: 2rem;
+                padding: 1rem;
+                background: none;
+                border: blue solid 1px;
+                border-radius: 30px;
+                color: white;
+            }
+
+
+            /* TRIGO */
+
+            .circle, .wave {
+            fill: none;
+            stroke: blue;
+            stroke-width: 1.5px;
+            }
+            .circle {
+            stroke: white
+            }
+            .axis {
+            stroke: red;
+            stroke-width: 1px;
+            }
+            .edge {
+            stroke: #0f0;
+            stroke-width: 1px;
+            }
+            .line {
+            stroke: white;
+            stroke-width: 1.5px;
+            }
+            #dot {
+            fill: rgb(255, 255, 255);
+            }
+            .filler {
+            fill: rgb(0, 0, 0);
+            }
+
+            #vis{
+                scale: 1.5;
+                position: absolute;
+                top: 40%;
+                left: -25%;
+
+                display: none;
+            }
+
+            /* CIRCLE */
+
+            #circle{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                width: 100vw;
+                position: fixed;
+
+                display: none;
+            }
+
+            .circle2{
+                background-color: blue;
+                width: 250px;
+                height: 250px;
+                border-radius: 50%;
+                box-shadow: inset 0 0 25px #373737;
+            }
+
+            .dot{
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background-color: black;
+                position: absolute;
+                z-index: 1000;
+            }
+
+
+
+            /* TEXT */
+            #container{
+                margin: 1rem;
+                position: absolute;
+                z-index: 3000;
+                font-size: 2.5rem;
+                overflow-y: scroll;
+                border-radius: 10px;
+                padding: 1rem;
+                bottom: 0;
+
+            }
+
+            #onetwothreefour{
+                display: none;
+                grid-template-columns: auto auto;
+                width: 100%;
+                height: 100%;
+                align-items: center;
+                justify-items: center;
+                z-index: 2000;
+            }
+
+            .dot_expl{
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background-color: rgb(255, 255, 255);
+                z-index: 1000;
+            }
+
+            .circle_expl{
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                background-color: blue;
+                z-index: 1000;
+            }
+
+            .tri_expl{
+                width: 100px;
+                background-position: center;
+                height: 100px;
+                scale: 1.3;
+                background-image: url(tri.svg);
+                background-repeat: no-repeat;
+            }
+
+            .squ_expl{
+                width: 100px;
+                height: 100px;
+                background-color: red;
+                z-index: 1000;
+            }
+
+            #sequence, #agni{
+                width: 100%;
+                height: 100%;
+                
+                align-items: center;
+                justify-content: center;
+                display: none;
+
+            }
+
+            #agni img{
+                width: 130%;
+            transform: rotate(90deg);
+            }
+
+
+            .end{
+                width: 100vw;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        </style>
+    </head>
+<body>
+
+    <div id="langQuest">
+        <h1>αβ χΩ ?</h1>
+        <div>
+            <button onclick="language('it')">Italiano</button>
+            <button onclick="language('en')">English</button>
+        </div>
+    </div>
+
+    <div id="container">
+        
+    </div>
+
+    <div id="vis">
+        <script src="animated-trig.js"></script>
+    </div>
+
+    <div id="circle">
+        <div class="dot"></div>
+        <div class="circle2"></div>
+    </div>
+
+    <div id="onetwothreefour">
+        <div class="dot_expl">
+
+        </div>
+
+        <div class="circle_expl">
+
+        </div>
+
+        <div class="tri_expl">
+            
+        </div>
+
+
+        <div class="squ_expl">
+
+        </div>
+
+    
+    </div>
+
+    <div id="sequence">
+        <canvas id="myCanvas" width="250" height="250"></canvas>
+    </div>
+
+    <div id="agni" style="background-color: white; color:black;">
+        <img src="agni.png" alt="">
+    </div>
+
+    <script>
+        
+        let text
+
+        en = { regia:
+             [
+
+
+                "<i>Nades, Suradis, Manine</i>",
+
+                "That these precarious words may serve as a prayer for all of us to consider ourselves as prophets.",
+                
+                "<i>Sader, Prostas, Solaster</i>",
+
+                "Let's invoke the spirit of Salomon, of Plato, of Paracelso, of Newton, of Eliphas Levi, of Apollo from Thiana.",
+                
+                "Further, let's invoke the spirit of all the magicians and mathematicians women we do not have trace because of a boor past.",
+                
+                "Lastly, let's invoke the spirit of Muhammed Ibn Musa from Al-Khuwarizmi.",
+                
+                "Praise to Franco, who sang beautifully",
+
+                "for the horizontal line propels us toward matter",
+
+                "And the vertical one toward spirit.",
+                
+                "Here, we will attempt to trace that diagonal that decrypts the invisible and the ineffable.",
+
+                "We abandon complexity, remixing systems.",
+
+                "Let the wand and the sword be our tools, but without these objects.",
+
+                "Let the word be both cutting and unifying simultaneously.",
+
+                "In this microcosm we form with our presence,",
+
+                "Let us bid adieu to the constraints of passions for a few days,",
+
+                "for here, we are a single breathing monster,",
+
+                "for here, the cosmogony of our microcosm is tribal.",
+
+                "Here, together, we are a primordial, future, and even divine image,",
+
+                "And here, a single empirical and virtually digital connection unites us.",
+
+                "We suspended this reality and propose to create another in this limited time.",
+
+                "Let's shape ourselves as an emergent behavior, or as a terrorst nucleus.",
+
+                "When we were young, we wondered without consciousness about the purpose of the disciplines we were required to study.",
+                
+                "What was their application in the world, their usefulness?",
+
+                "No one, or almost no one, ever explained the necessity of Uselessness.",
+
+                "Getting lost in thoughts and the world of ideas, or pure abstraction:", 
+                
+                "permission to aspire to knowledge of what lies beyond.",
+
+                "Having the power to comprehend the laws governing the existent and the essential has been replaced by the technical study of Excel.",
+
+                "The foundational element of our current, humble reality is an absolutist language.",
+
+                "A singular solution, a singular direction, a singular development.",
+
+                "Mimicking, unfortunately, the biological patterns, the patterns of the <i>physis</i>, the patterns we might mistakenly coin as natural", 
+                
+                "forgetting that we too are nature, that concrete too, and a nuclear explosion as well.",
+
+                "Here lies the error: We, complex animals endowed with language, always forget that the artifice we create is generated by our calculation.",
+                
+                "And our calculations are not the sacred pattern of the <i>physis</i>.",
+
+                "In the name of diffraction, let’s declare:",
+             
+                "Chaotic multiplication of languages.",
+                "Holistic understanding of existence.",
+                "Violent meditation for essence.",
+                "Blasphemy as self-celebration.",
+                "The quest for or generation of the primal sense, or Unity, or Aleph.",
+                "Demarkation of that aforementioned diagonal, a symptom of conscious irrationality.",
+
+                "Numbers, like the alphabet, do not exist",
+
+                "Except as symbols of ink or pixels.",
+
+                "For there is no alphanumeric outside of the ink or pixels themselves.",
+                
+                "Their non-manifestation lies in the mystery of the written.",
+                
+                "And their manifestation is nothing but being determined by the written.",
+
+                "And the reading of the written is what makes us say one, two, three, four.",
+
+                "Point, Circle, Triangle, Square.",
+
+                "Metaphors that encapsulate the mystery of the whole.",
+
+                "There are relationships I dare to name as sacred that exist beyond human comprehension.",
+
+                "The mathematical relationship is the tool to relate one thing to another, making them one and two together",
+                
+                "exactly as any progression of similar figures demonstrates, which are a multitude, yet, due to the invariance of form, one.",
+
+                "Without knowledge of number, Plato said, we would be deprived of the possibility of knowing the real, of which we could have only perceptions and memories.",
+                
+                "Numerical relationships as the threads of a net.",
+
+                "Contemporary hegemony has appropriated numbers, making them pure data so that everything fits into a production machine.",
+
+                "But originally, Vedic mathematicians used the numerical alphabet to establish a connection with the divine.",
+
+                "The altars of Agni had complex geometric shapes and had to be magnified 100 times without changing their form.",
+
+                "In Greece, it sometimes happened that the enlargement of a figure was ordered by a God, such as the doubling of a cube.",
+
+                "It's not simple: the enlargement of the figure implies dealing with irrational numbers, like the ratio between a circumference and its diameter,",
+                "or the diagonal of a square.",
+
+                "Irrational numbers are non-integer numbers, vulgarly: numbers with decimals that have no end.",
+
+                "The diagonal we are seeking is as irrational as the number that describes it.",
+
+                "Mathematics is the principle of a connection between the conceptions of the metaphisic and of nature.",
+
+                "It's one of the models for dialoguing with the unknown that surrounds us, and it's a fantastic connector between metaphysics and the tangible universe.",
+
+                "We can consider ourselves generative deities when we write and speak alphanumeric",
+
+                "because the ordered arrangement of certain letters or numbers creates separate worlds.",
+
+                "Yet even total disorder creates separate worlds.",
+
+                "The question of understanding is the quest.",
+
+                "Understanding functions and grasping constants and variables.",
+
+                "Cosmos are algorithms, governed by rules that follow an order or disorder,",
+                
+                "and eventually trigger a result where another algorithm takes over.",
+                
+                "But the only sense we can give to existence is when we tend to create chaos. ",
+                
+                "So let's embrace it.",
+                
+                "Logic falls, relationships no longer exist, indeed, we decide not to consider them.",
+
+                "These sounds are random frequencies, inaccurate according to the history of Western music.",
+               
+                "But even randomness is not random.",
+
+                "We have innate biases, biases that make us choose or not choose <i>randomly<i>",
+
+                "and these sounds are produced by machines we created that generate randomness.",
+
+                "And since we are the inventors of these machines, we can only project our biases onto them.",
+
+                "Chaos is perhaps just a pure illusion.",
+                
+                "Perhaps is a <i>battle against windmills</i> the disenchantment of any possible algorithm.",
+
+                "But we can appropriate the devices and the images they create to tend towards the desacralisation of order.",
+
+                "STOP If we understand reality as a stage, the search for what is beyond it is a secret.",
+
+                "We are not given to know what happens when the actresses and actors go behind the scenes.",
+
+                "Trapped in technical and universal language, we evoke catastrophe.",
+
+                "Let dreams be fuel, let utopia be tinder.",
+
+                "On our stage, the backdrop will change, the landscape will be altered, and the fragility of reality is laid bare.",
+
+                "What was taken for granted in our reality is resigned.",
+
+                "While waiting for the void to be filled, a new cosmology, a new order will arise.",
+
+                "The headache generated by understanding how to alter existence is certainly amplified by the search for essence.",
+
+                "Let's imagine reality as an interweaving of essence and existence, like warp and weft,",
+
+                "and the event of their undoing requires a weaver capable of interweaving the two back together,",
+            
+                "regardless of the specific shapes and colors each of them can take.",
+
+                "Let us shout wizards! This is what we are.",
+
+                "Weavers of the inexpressible, lovers of that unpronounceable breath of life.",
+
+                "The essence of total nature, of the <i>physis</i>, of the divine, can possibly be expressed with the number 1.",
+
+                "Numbers are nothing but the infinite variation of the one.",
+
+                "And one is what we configure as the minimum, as a point, as the beginning of the ray of life.",
+
+                "One is independent, but everything else depends on one.",
+
+                "The center of the circle obviously represents unity, and the circumference, composed of contiguous points, expresses the concept of multiplicity.",
+
+                "And the rays of the circle, starting from the center, from unity, to end at one of the points on the circumference, ",
+                
+                "are the link between one and the other, between unity in itself and the computed manifestation of multiplicity.",
+
+                "The center that gives rise to the circumference does not depend on it: it always remains one,",
+                
+                "intolerable in its essence regardless of the existence of the circumference.",
+
+                "The existence of the center is autonomous because the circle only exists in the idea of ​​the one who draws it and does not exist actually.",
+
+                "But if we understand that circle in motion, we can create a bridge between the purest idea and the purest tangibility.",
+
+                "The creation of sine waves, a sign of sonic perfection.",
+
+                "But as soon as the size of the circle changes, instability takes over, and another microcosm is generated.",
+
+                "Newton proposed the concept of fluxion.",
+
+                "<i>Fluens est quod continua mutationem auger vel diminuitur</i><br><br>><i>Fluxio est celeritas mutationes illius</i>",
+
+                "Fluens is what increases or decreases due to continuous motion<br><br>Fluxio is the speed of this movement",
+
+                "Growing and diminishing jeopardizes the essence of things, but for the entire time a certain relationship lasts, the total nature of a thing remains unchanged.",
+
+                "Resignation as redesign of our generated signs: it's the essence of the labor that is wrong, no matter how many relationships we assign to it.",
+
+                "Growth, like decay, can be limitless.",
+
+                "Without bounds, we go in the direction of the infinitely large or small. Thus, we plunge into the indefinable, into the <i>apeiron</i>.",
+
+                "Rhythm is needed! Incongruous rhythm is needed!",
+
+                "Understanding inconsistency is also needed.",
+
+                "Conceiving the sacrifice of essence is needed.",
+
+                "Let's steal language from the gods, and thus generate ideas that imitate goddesses, sacrificing them.",
+
+                "Everything is right, everything is correct.",
+                "It's the words that are not enough.",
+
+                "<i>Mammes, Laher</i>",
+
+                "<div class='end'><h3>ALGORISMO</h3><h4>VENA - Tangier</h4><h6>1st October 2023</h6><br><br><i style='font-size: 1rem'>We are the anemic crew, of this unfamous world</i></div>",
+
+            ]
+            }
+
+
+        it = {
+            regia:
+            [
+            "<i>Nades, Suradis, Manine</i>",
+
+            "Che queste parole precarie siano una preghiera per considerarci tutte noi dei profeti.",
+            
+            "<i>Sader, Prostas, Solaster</i>",
+            
+            "Invochiamo lo spirito di Salomone, di Platone, di Paracelso, di Newton, di Eliphas Levi, di Apollonio di Thiana.",
+            
+            "Invochiamo lo spirito di tutte le donne maghe e matematiche di cui non abbiamo traccia per via di un passato becero.",
+
+            "Infine, invochiamo lo spirito di Muhammed Ibn Musa proveniente da Al-Khuwarizmi",
+
+            "Lode a Franco, che cantava bene",
+
+            "Che la linea orizzontale ci spinge verso la materia",
+            
+            "e quella verticale verso lo spirito",
+
+            "qua tenteremo di tracciare quella diagonale che decifra l’invisibile e l’ineffabile, incastrata tra l’altra e l’intenzione.",
+
+            "Disertiamo la complessità, rimescoliamo i sistemi. ",
+
+            "Che la bacchetta e la spada siano i nostri strumenti, ma senza questi oggetti. ",
+
+            "Che il verbo sia fendente e contemporaneamente riunisca.",
+
+            "In questo microcosmo che formiamo con la nostra presenza",
+            
+            "Abbiamo detto arrivederci per qualche giorno ai vincoli delle passioni",
+            
+            "Perchè qua siamo state un unico mostro che respira",
+            
+            "Perchè qua la cosmogonia del nostro microcosmo è quella tribale",
+
+            "Qua, siamo tutte assieme una immagine primordiale,  futura e anche divina",
+
+            "E qua, un’unica connessione empirica e virtualmente digitale, ci connette",
+
+            "Abbiamo sospeso questa realtà proponendoci di crearne un’altra in questo tempo ristretto",
+            
+            "Formiamoci come comportamento emergente, o come nucleo terroristico",
+           
+            "Ci si chiedeva senza coscienza, quando eravamo piccine e piccini, a cosa servissero le discipline che ci era dato studiare.",
+            
+            "Quale fosse la loro applicazione nel mondo, la loro utilità",
+            
+            "Nessuno, o quasi, ci ha mai spiegato la necessità della Inutilità",
+            
+            "Il perdersi nei pensieri e nel mondo delle idee, o l’astrazione più pura",
+            
+            "Il permesso di aspirare alla conoscenza di quel che sta fuori ",
+
+            "Avere il potere del sapere delle leggi che governano l’esistente e l’essenziale è stato sostituito con lo studio di Excel.",
+            
+            "L’elemento fondante della nostra infima realtà corrente è il linguaggio assolutista ",
+            
+            "Un’unica soluzione, un’unica direzione, un’unico sviluppo",
+            
+            "Scimmiottando con malasorte i pattern biologici, i pattern della <i>physis</i>, i pattern che potremmo coniare con errore come naturali,", 
+
+            "dimenticando che anche noi siamo natura, che il cemento pure, e una esplosione nucleare lo stesso.",
+
+            "Sta qua l’errore: Noi, animali complessi dotati di linguaggio, ci dimentichiamo sempre che l’artificio che creiamo è generato da un nostro calcolo. ",
+
+            "E i nostri calcoli non sono i rapporti sacri della <i>physis</i>.",
+
+            "In nome della diffrazione dichiaro:",
+
+            "Moltiplicazione caotica dei linguaggi",
+            "Comprensione olistica dell’esistenza",
+            "Meditazione violenta per l’essenza",
+            "Bestemmia come auto-celebrazione",
+            "Ricerca o generazione del senso primo, oppure Unità, oppure Alef.",
+            "Demarcazione di quella citata diagonale che è sintomo dell’irrazionale conscio.",
+            
+            
+            "I numeri, come l’alfabeto, non esistono",
+            
+            "Se non come simboli dell’inchiostro o dei pixel",
+           
+            "Poichè non c’è l’alfanumerico al di fuori dell’inchiostro o dei pixel stessi",
+           
+            "La loro non-manifestazione è nel mistero dello scritto",
+            
+            "E la loro manifestazione altro non è se non l’essere determinate dallo scritto",
+
+            "E la lettura dello scritto è quel che ci fa dire uno, due, tre, quattro",
+
+            "Punto, Cerchio, Triangolo, Quadrato.",
+
+            "Pure metafore che racchiudono il mistero del tutto.",
+
+            "Ci sono rapporti che oso nominare come sacri che esistono al di fuori della comprensione umana.",
+
+            "Il rapporto matematico è lo strumento per mettere in relazione una cosa con l’altra, facendone una e due assieme,",
+            
+            "esattamente come dimostra qualsiasi progressione di figure simili, che sono moltitudine, ma eppure, per l’invarianza della forma, una sola.",
+
+            "Senza la conoscenza del numero, diceva Platone, ci sarebbe sottrata la possibilità di conoscere il reale, di cui potremmo avere solo percezioni e ricordi. ",
+
+            "Rapporti numerici come trame di una rete. ",
+
+            "L’egemonia contemporanea si è appropriata dei numeri rendendoli puri dati per far sì che tutto entri in una macchina di produzione.",
+
+            "Ma in origine, i matematici dell’india vedica usavano l’alfabeto numerico per stabilire una connessione col divino",
+
+            "Gli altari di Agni avevano complesse forme geometriche e dovevano poter essere ingranditi 100 volte senza cambiare la loro forma.",
+
+            "In Grecia invece capitava che fosse ordinata da un Dio l’ingrandimento di una figura, come il raddoppiamento di un cubo.",
+
+            "Non è cosa semplice: l’ingrandimento della figura implica il dialogo con numeri irrazionali, come il rapporto tra una circonferenza e il suo diametro",
+            "oppure la diagonale di un quadrato",
+
+            "I numeri irrazionali sono numeri non interi, volgarmente: numeri con la virgola che non hanno una fine.",
+
+            "La diagonale che stiamo andando a cercare è irrazionale come il numero che la descrive.",
+
+            "La matematica è il principio di un nesso tra le concezioni del mistico e della natura. ",
+
+            "E’ uno dei modelli per dialogare con l’ignoto che ci circonda, ed è un connettore fantastico tra metafisica e il tutto tangibile.",
+
+
+
+            "Possiamo considerarci divinità generatrice quando scriviamo e pronunciamo l’alfanumerico",
+
+            "Poichè l’allestimento ordinato di certe lettere e o certi numeri, creano di fatto mondi a se stanti",
+
+            "Eppure anche il totale disordine crea di fatto mondi a se stanti",
+
+            "La questione della comprensione è la ricerca. ",
+
+            "Comprendere le funzioni e capire costanti e variabili.",
+
+            "I cosmi sono algoritmi, governati da regole che seguono un ordine o disordine,",
+            
+            "ed eventualmente scatenano un risultato dove scatta un altro algoritmo",
+
+            "Ma l’unico senso che riusciamo a dare all’esistente, è quando tendiamo a formare il caos",
+            
+            "E allora scegliamolo",
+
+            "La logica cade, le relazioni non esistono piu, anzi decidiamo di non considerarle",
+            
+            "Questi suoni sono frequenze randomiche, inesatte secondo la storia della musica occidentale",
+
+            "Ma anche il random non è random",
+
+            "Abbiamo atavicamente dei pregiudizi, dei bias, che ci fanno o non fanno scegliere <i>a caso</i>",
+
+            "E questi suoni sono prodotti da macchine da noi crate che generano random",
+    
+            "Ed essendo noi gli inventori di tali macchine, non possiamo che riversare su di esse i nostri pregiudizi",
+
+            "Il caos è forse solo una pura illusione",
+
+            "E’ forse una battaglia contro i mulini a vento il disincantasi da un qualsiasi possibile algoritmo",
+
+            " Ma possiamo appropriarci dei dispositivi e delle immagini che essi creano per tendere al dissacramento dell’ordine ",
+
+            "Se intendiamo la realtà come un palco, la ricerca di quel che sta fuori da esso è un segreto.",
+
+            " Non ci è dato sapere cosa succede quando le attrici e gli attori vanno dietro le quinte",
+
+            "Incastrati nel linguaggio tecnico e universale, evochiamo la catastrofe.",
+            
+            "Che i sogni siano carburante, che l’utopia sia fiammifero. ",
+
+            "sul nostro palco, lo sfondo cambierà, il paesaggio sarà alterato, viene messa a nudo la fragilità della realtà.",
+
+            "Ciò che era dato per scontato nella nostra realtà è rassegnato.",
+
+            "Nell’aspettare che il vuoto venga riempito, una nuova cosmologia, un nuovo ordine sorgerà.",
+
+            "Il mal di testa generato dal capire come alterare l’esistenza È sicuramentee ampliato dalla ricerca dell’essenza",
+
+            "Immaginiamo la realtà come un intreccio fatto di essenza e l'esistenza, come l'ordito e la trama",
+
+            "e l'evento della sua disfatta richiede un tessitore in grado di intrecciare i due di nuovo insieme,"
+            
+            ," indipendentemente dalle forme e dai colori specifici che ognuno di loro può assumere",
+
+            "Urliamoci maghe e maghi! E’ questo quello che siamo.",
+
+            "Tessitori dell’inespressibile, amanti di quel soffio della vita impronunciabile",
+
+            "L’essenza della totale natura, della <i>physis</i>, del divino, è possibilmente esprimibile con l’<b>1</b>",
+
+            "I numeri non sono che l’infinita variazione dell’uno",
+
+            "E l’uno è quel che configuriamo come minimo, come punto, come inizio della semiretta della vita",
+
+            "L’uno è indipendente, ma tutto il resto dipende dall’uno",
+
+            "Il centro del cerchio rappresenta evidentemente l’unità, e la circonferenza, composta da punti contigui, esprime questo concetto della molteplicità ",
+
+            "E I raggi del cerchio, che partono dal centro, dall’unità, per finire in uno dei punti della circonferenza,",
+            
+            "sono il legame fra l’uno e l’altra, fra l’unita in se e la computa manifestazione della molteplicità",
+
+            "Il centro che da origine alla circonferenza, non dipende da questa: rimane sempre uno,",
+            
+            "intollerabile nella propria essenza a prescindere dall’esistenza della circonferenza.",
+
+            "L’esistenza del centro è autonoma, perché il cerchio è solo nell’idea di chi lo traccia e non esiste effettivamente.",
+
+            "Ma se quel cerchio lo si intende in movimento, ecco che possiamo imbastire il ponte tra l’idea più pura e la tangibilità più pura. ",
+
+            "La creazione di onde sinusoidali, sintomo di perfezione sonora.",
+
+            "Ma appena la grandezza del cerchio si altera, ecco che l’instabilità prende il sopravvento, e un’altro microcosmo viene generato.",
+
+            "Newton propose il concetto di flussione",
+
+            "<i>Fluens est quod continua mutationem auger vel diminuitur</i><br><br><i>Fluxio est celeritas mutationes illius</i>",
+
+            "Fluens è ciò che aumenta o diminuisce per via di un movimento continuo<br><br>Fluxio è la velocità di questo movimento",
+
+            "Il crescere e il diminuire mette a repentaglio l’essenza stessa delle cose, ma per tutto il tempo che dura un certo rapporto, la natura totale di una cosa rimane invariata.",
+
+            "Rassegnazione come riprogettazione dei nostri generati segni: è l’essenza del lavoro che è sbagliata, per quanti rapporti abbiamo assegnatoli.",
+
+            "La crescita come la decrescita può essere illimitata. ",
+
+            "Senza confine si va nella direzione dell’infinitamente grande o piccolo. ",
+
+            "Sfociamo così nell’indefinibile, nell’<i>apeiron</i>. ",
+
+            "Serve ritmo! Serve ritmo incongruente!",
+
+            "Serve anche comprensione dell’inconsistenza.<br>Serve concepire il sacrificio dell’essenza",
+
+            "Rubiamo il linguaggio dagli dei, e così generiamo idee che imitano dee, sacrificandole.",
+
+            "Tutto è giusto, tutto è corretto.",
+            "Sono le parole che non sono abbastanza.",
+
+            "<i>Mammes, Laher</i>",
+
+            "<div class='end'><h3>ALGORISMO</h3><h4>VENA - Tangier</h4><h6>1st October 2023</h6><br><br><i style='font-size: 1rem'>Siamo la ciurma anemica, di questa realtà infame</i></div>",
+
+
+            ]
+        }
+
+        // get a random integer giving min and max value
+        function randomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+
+        // generate a random ID
+        const clientId = randomInt(1,8)
+        console.log(clientId)
+
+        // backgrounds control
+        function allWhite(){
+            document.getElementById("container").innerHTML = '';
+            document.body.style.backgroundColor = 'white'
+            document.body.style.color = 'black' 
+            document.body.style.transition = "all "+300;
+        }
+
+        function allBlack(){
+            document.getElementById("container").innerHTML = '';
+            document.body.style.color = 'white' 
+            document.body.style.backgroundColor = 'black' 
+            document.body.style.transition = "all "+300;
+        }
+
+        function pulse(t){
+            if (t <= 50){
+                t = t*3
+            }
+            document.body.style.backgroundColor = 'white' 
+            document.body.style.color = 'black' 
+            document.body.style.transition = "all "+t;
+            document.querySelectorAll(".filler").forEach(element => {
+                element.style.fill = 'white' 
+            });
+            setTimeout(() => {
+                document.body.style.backgroundColor = 'black' 
+                document.body.style.color = 'white' 
+                document.querySelectorAll(".filler").forEach(element => {
+                element.style.fill = 'black' 
+            });
+            }, t);
+        }
+
+    
+        // SUCCESSIONE
+
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Define the grid size and cell size
+        const gridSize = 10;
+        const cellSize = canvas.width / gridSize;
+
+        // Function to draw a square at the specified x, y coordinates
+        function drawSquare(x, y, sideLength) {
+            ctx.beginPath();
+            ctx.rect(x, y, sideLength, sideLength);
+            ctx.stroke();
+        }
+
+        // Loop through the grid and draw the shapes
+        for (let x = 0; x < gridSize; x++) {
+            for (let y = 0; y < gridSize; y++) {
+            const xPos = x * cellSize;
+            const yPos = y * cellSize;
+            // Draw a square
+            drawSquare(xPos + 2, yPos + 2, cellSize - 4);
+        }
+      }
+
+
+        // SINEWAVE
+
+        let frequency 
+        let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        let oscillator;
+
+        // Initialize oscillator
+        function initOscillator(frequency) {
+            oscillator = audioContext.createOscillator();
+            oscillator.type = 'sine'; // Set oscillator type to sine wave
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            oscillator.connect(audioContext.destination);
+        }
+
+        // POLY
+        
+        let polySynth = new Tone.PolySynth({ voices: 2 }).toDestination();
+
+        function polyS(inputScale){
+                    
+        // Create a new instance of PolySynth with 4 voices
+         polySynth = new Tone.PolySynth({ voices: 2 }).toDestination();
+
+
+            let randomScale = inputScale
+            console.log(randomScale)
+
+            // Function to generate a random note from the Phrygian scale
+            function getRandomNote(array) {
+                const randomIndex = Math.floor(Math.random() * array.length);
+                return array[randomIndex];
+            }
+
+            // Function to play a random note from the Phrygian scale and release it after a certain duration
+            function playRandomNote(array) {
+                const randomNote = getRandomNote(array);
+                console.log(randomNote)
+                const duration = '1n'; // You can adjust the duration as needed
+
+                // Trigger the note with a specified duration
+                polySynth.triggerAttackRelease(randomNote + '4', duration);
+
+                // Release the note after the duration to prevent overlap
+                setTimeout(() => {
+                    polySynth.triggerRelease(randomNote + '1');
+                }, Tone.Time(duration).toMilliseconds());
+            }
+
+            // Create a loop to generate a random pattern
+            let loop = new Tone.Loop(() => {
+                playRandomNote(randomScale);
+                pulse(400)
+            }, '1,5'); // Change the time interval as needed (e.g., '4n' for quarter notes)
+
+            // Start the loop and the Tone.Transport
+            Tone.Transport.start();
+            loop.iterations = 3
+            loop.start()
+
+        }
+     
+        // DRUMS
+        const transport = Tone.Transport;
+        let t = 0;
+
+        // Function to create a kick drum sound
+        function createKick() {
+        const kick = new Tone.MembraneSynth({
+            pitchDecay: 0.05,       // Short pitch decay for a punchy sound
+            octaves: 2,             // Adjust octaves for desired tone
+            oscillator: { type: 'sine' }, // Use a sine wave oscillator for a rounded tone
+        }).toDestination();
+        return kick;
+        }
+
+        // Function to create a snare drum sound
+        function createSnare() {
+        const snare = new Tone.NoiseSynth({ noise: { type: 'white' } }).toDestination();
+        return snare;
+        }
+
+        // Function to create a hi-hat sound
+        function createHiHat() {
+        const hiHat = new Tone.MetalSynth({
+            harmonicity: 5,
+            resonance: 400,
+            modulationIndex: 20,
+            envelope: {
+            attack: 0.001,
+            decay: 0.1,
+            release: 0.01,
+            },
+            volume: -10,
+        }).toDestination();
+        return hiHat;
+        }
+
+        // Function to create a tom1 sound
+        function createTom1() {
+        const tom1 = new Tone.MembraneSynth({
+            pitchDecay: 0.008,
+            octaves: 2,
+            oscillator: { type: 'sine' },
+        }).toDestination();
+        return tom1;
+        }
+
+        // Function to create a tom2 sound
+        function createTom2() {
+        const tom2 = new Tone.MembraneSynth({
+            pitchDecay: 0.01,
+            octaves: 2,
+            oscillator: { type: 'sine' },
+        }).toDestination();
+        return tom2;
+        }
+
+        // Function to create a tom3 sound
+        function createTom3() {
+        const tom3 = new Tone.MembraneSynth({
+            pitchDecay: 0.02,
+            octaves: 2,
+            oscillator: { type: 'sine' },
+        }).toDestination();
+        return tom3;
+        }
+
+        // Function to create a crash cymbal sound
+        function createCrash() {
+        const crash = new Tone.NoiseSynth({ noise: { type: 'pink' } }).toDestination();
+        return crash;
+        }
+
+       // Create an instance for each drum sound
+        const kick = createKick();
+        const snare = createSnare();
+        const hiHat = createHiHat();
+        const tom1 = createTom1();
+        const tom2 = createTom2();
+        const tom3 = createTom3();
+        const crash = createCrash();
+
+
+        // Choose the language aka choose the JSON of the text
+        function language(lan){
+            if (lan == 'it'){
+                text = it['regia'];
+            } else {
+                text = en['regia'];
+            }
+            console.log(text.length)
+            // make full screen
+            let elem = document.documentElement;
+            // if (elem.requestFullscreen) {
+            //     elem.requestFullscreen();
+            // } else if (elem.webkitRequestFullscreen) { /* Safari */
+            //     elem.webkitRequestFullscreen();
+            // }
+            // make the question disappear
+            document.getElementById("langQuest").style.display = 'none';
+            // make Tone.js starts
+            Tone.start()
+
+            sineW(330, true)
+           
+        }
+
+
+        var currentIO
+        if (Math.floor(randomInt(0,2) == 0)){
+            currentIO = true
+        } else {
+            currentIO = false
+        }
+
+
+        const socket = new WebSocket('ws://'+ip+':3000');
+
+
+        socket.addEventListener('open', (event) => {
+            console.log('WebSocket connection opened');
+        });
+
+        socket.addEventListener('message', (event) => {
+            if (event.data instanceof Blob) {
+                reader = new FileReader();
+
+                reader.onload = () => {
+                    if (reader.result !== null){
+                       
+                         if (reader.result.startsWith("{")) {
+                          
+                            // jsonify the data
+                            let data = JSON.parse(reader.result)
+                        
+                            if (data.kind == 'rWave'){
+                                if (clientId == data.id){
+                                    rWave(data.fq,data.dur,data.fqfm)
+                                }
+                            } else if (data.kind == "sine"){
+                                if(data.type == 'legit'){
+                                    if (currentIO){
+                                        sineW(220, true) // o 440
+                                    }else {
+                                        sineW(440, true) // o 440
+                                    }
+                                  
+                                } else { // if sine is "illegit"
+                                    if (clientId % 2 == 0){
+                                        if (currentIO){
+                                            sineW(randomInt(200,240), true) // o 440
+                                        }else {
+                                            sineW(randomInt(420,460), true) // o 440
+                                        }
+                                    } else {
+                                        if (currentIO){
+                                            sineW(220, true) // o 440
+                                        }else {
+                                            sineW(440, true) // o 440
+                                        }
+                                    }
+                                    
+                                }
+                            } else if (data.kind == "sineStop"){
+                                if (currentIO){
+                                        sineW(220, false) // o 440
+                                    }else {
+                                        sineW(440, false) // o 440
+                                    }
+
+                            } else if (data.kind == "polys"){
+                                if (clientId == data.id  ){
+                                    console.log('ao')
+                                    // if (currentIO == true){
+                                        polyS(data.scale)
+                                    // }
+                                    currentIO = !currentIO
+                                }
+                            } else { 
+                                let rhythms = data.rhythms
+                                let looped = data.looped
+                                let tempo = data.tempo
+                                console.log(data)
+                                poly(rhythms, looped, tempo)
+                            }
+                            
+                           
+                        } else{
+                            console.log(reader.result)
+                            if(reader.result == 'sequ'){
+                                document.getElementById("sequence").style.display = 'flex'
+                            }  else if(reader.result=="sequ_stop"){
+                                document.getElementById("sequence").style.display = 'none'
+                            } else if(reader.result == "agni"){
+                                document.getElementById("agni").style.display = 'flex'
+                                document.getElementById('container').innerHTML = ''
+                            }  else if(reader.result=="agni_stop"){
+                                document.getElementById("agni").style.display = 'none'
+                                document.getElementById('container').innerHTML = ''
+                            }if (reader.result == 'allWhite'){
+                                allWhite()
+                            } else if (reader.result == 'allBlack'){
+                                allBlack()
+                            } else if (reader.result == 'onetwothreefour'){
+                                document.getElementById('onetwothreefour').style.display = 'grid'
+                                document.getElementById('container').innerHTML = ''
+                            } else if (reader.result == 'onetwothreefour_stop'){
+                                document.getElementById('onetwothreefour').style.display = 'none'
+                                  
+                            } else if (reader.result == 'circle') {
+                                document.getElementById("circle").style.display = 'flex'
+                                document.getElementById('container').innerHTML = ''
+                            } else if (reader.result == 'circle_stop'){
+                                document.getElementById("circle").style.display = 'none'
+                            } else if (reader.result == 'trig'){
+                                document.getElementById("vis").style.display = 'flex'
+                                document.getElementById('container').innerHTML = ''
+                            }  else if (reader.result == 'trig_stop'){
+                                document.getElementById("vis").style.display = 'none'
+                                document.getElementById('container').innerHTML = ''
+                            }else {
+                                console.log(reader.result)
+                                if (reader.result.length >= 4){
+                                    document.getElementById('container').innerHTML = ''
+                                }else {
+                                    console.log(reader.result)
+                                    document.getElementById('container').innerHTML = text[reader.result]
+
+                                }
+                            }
+                        }
+                    }
+                    
+                    
+                    
+                };
+
+                reader.readAsText(event.data);
+            } else {
+                console.log("Result: " + event.data);
+            }
+           
+            
+
+        });
+
+
+        // POLYRHYTHM
+        function poly(rhythms,looped,tempo){
+            // Create sequences for each drum with random rhythms
+            const sequencers = {};
+
+            // Update the sequences with the new rhythms
+            for (const drum of Object.keys(rhythms)) {
+                sequencers[drum] = new Tone.Sequence((time, note) => {
+                if (note !== null) {
+                    switch (drum) {
+                    case 'kick':
+                        if (clientId == 1 || clientId == 5){
+                            pulse(time)
+                            kick.triggerAttackRelease(note, '16n', time);
+                        }
+                        
+                    break;
+                    case 'snare':
+                    if (clientId == 2 || clientId == 6){
+                        pulse(time)
+                        snare.triggerAttackRelease('16n', time);
+                    }
+                    break;
+                    case 'hiHat':
+                    if (clientId == 3){
+                        pulse(time)
+                        hiHat.triggerAttackRelease('32n', time);
+                    }
+                    break;
+                    case 'tom1':
+                    if (clientId == 4){
+                        pulse(time)
+                        tom1.triggerAttackRelease(note, '16n', time);
+                    }
+                    break;
+                    case 'tom2':
+                    if (clientId == 5){
+                        pulse(time)
+                            tom2.triggerAttackRelease(note, '64n', time);
+                    }
+                    break;
+                    case 'tom3':
+                    if (clientId == 6){
+                        pulse(time)
+                        tom3.triggerAttackRelease(note, '64n', time);
+                    }
+                        break;
+                    case 'crash':
+                    if (clientId == 7){
+                        pulse(time)
+                        crash.triggerAttackRelease('16n', time);
+                    }
+                    break;
+                    }
+                }
+                }, rhythms[drum]);
+
+                sequencers[drum].loop = looped;
+                sequencers[drum].start();
+            }
+
+
+            // Set the tempo and start the transport
+            Tone.Transport.bpm.value = tempo;
+            Tone.Transport.start();
+
+            // Start the sequencers
+            for (const sequencer of Object.values(sequencers)) {
+                sequencer.start();
+            }
+
+        }
+
+
+        
+        // play the sine or stop it
+        function sineW(frequency, io){
+            if (io){
+                initOscillator(frequency);
+                oscillator.start();
+            } else if (!io){
+                oscillator.stop();
+            }
+        }
+
+        // RANDOM WAVE
+        function rWave(frequency, duration,frequencyFM) {
+            const carrier = audioContext.createOscillator();
+            const modulator = audioContext.createOscillator();
+            const modulatorGain = audioContext.createGain();
+
+            // Connect the modulator to modulatorGain and adjust the gain to control modulation depth
+            modulator.connect(modulatorGain);
+            modulatorGain.connect(carrier.frequency);
+
+            // Set the frequency and type of the modulator
+            modulator.frequency.value = Math.floor(frequencyFM) // Adjust this value for modulation frequency
+            modulator.type = 'sine';
+
+            // Set the frequency of the carrier oscillator (the actual note)
+            carrier.frequency.value = frequency;
+
+            // Connect the carrier to the audio output
+            carrier.connect(audioContext.destination);
+
+            // Start the oscillators
+            modulator.start();
+            carrier.start();
+
+            // Stop the oscillators and note after the specified duration
+            const currentTime = audioContext.currentTime;
+            modulator.stop(currentTime*1.2);
+            carrier.stop(currentTime *1.1);
+        }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        let ip = 'localhost:8000'
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Master</title>
+    <style>
+            body{
+                font-family: 'font';
+                width: 100%;
+                height: 100vh;
+                background-color: black;
+                -webkit-transition: background-color 100ms linear; 
+                -ms-transition: background-color 100ms linear;
+                transition: background-color 100ms linear;
+                color: white;
+                margin: 0;
+                padding: 0;
+            }
+
+            #container{
+                font-size: 2em;
+                padding: 1rem;
+                height: 70vh;
+                overflow-y: scroll;
+            }
+            #containerAfter{
+                border: solid white 1px;
+                font-size: 1.5em;
+                padding: 1rem;
+                height: 30vh;
+            }
+
+            #forward{
+                width: 100%;
+                height: 3rem;
+                position: absolute;
+                bottom: 0;
+            }
+
+           
+    </style>
+</head>
+<body>
+
+
+    <button id="forward">avanti</button>    
+    <!-- <button id="bck">dietro</button> -->
+    <div id="container"></div>
+    <div id="containerAfter"></div>
+    
+    <script>
+       
+        let en = { regia:
+             [
+
+                "sineStop",
+                "<i>Nades, Suradis, Manine</i>",
+                "allWhite",
+
+                "That these precarious words may serve as a prayer for all of us to consider ourselves as prophets.",
+                "allBlack",
+                "<i>Sader, Prostas, Solaster</i>",
+                "allWhite",
+                "Let's invoke the spirit of Salomon, of Plato, of Paracelso, of Newton, of Eliphas Levi, of Apollo from Thiana.",
+                
+                "Further, let's invoke the spirit of all the magicians and mathematicians women we do not have trace because of a boor past.",
+                
+                "Lastly, let's invoke the spirit of Muhammed Ibn Musa from Al-Khuwarizmi.",
+                
+                "allBlack",
+                "11 3 220 30",
+
+                "Praise to Franco, who sang beautifully",
+
+                "for the horizontal line propels us toward matter",
+
+                "And the vertical one toward spirit.",
+                
+                "Here, we will attempt to trace that diagonal that decrypts the invisible and the ineffable.",
+
+                "11 12 105 15",
+
+                "We abandon complexity, remixing systems.",
+
+                "Let the wand and the sword be our tools, but without these objects.",
+
+                "Let the word be both cutting and unifying simultaneously.",
+
+                "In this microcosm we form with our presence,",
+
+                "Let us bid adieu to the constraints of passions for a few days,",
+
+                "for here, we are a single breathing monster,",
+
+                "for here, the cosmogony of our microcosm is tribal.",
+
+                "Here, together, we are a primordial, future, and even divine image,",
+
+                "And here, a single empirical and virtually digital connection unites us.",
+
+                "We suspended this reality and propose to create another in this limited time.",
+
+                "Let's shape ourselves as an emergent behavior, or as a terrorist nucleus.",
+
+                "allWhite",
+                "allBlack",
+
+                
+                "11 9 75 40",
+
+                "When we were young, we wondered without consciousness about the purpose of the disciplines we were required to study.",
+                
+                "What was their application in the world, their usefulness?",
+
+                "No one, or almost no one, ever explained the necessity of Uselessness.",
+
+                "Getting lost in thoughts and the world of ideas, or pure abstraction:", 
+                
+                "permission to aspire to knowledge of what lies beyond.",
+
+                "Having the power to comprehend the laws governing the existent and the essential has been replaced by the technical study of Excel.",
+
+                "The foundational element of our current, humble reality is an absolutist language.",
+
+                "A singular solution, a singular direction, a singular development.",
+
+                "Mimicking, unfortunately, the biological patterns, the patterns of the <i>physis</i>, the patterns we might mistakenly coin as natural", 
+                
+                "forgetting that we too are nature, that concrete too, and a nuclear explosion as well.",
+
+                "Here lies the error: We, complex animals endowed with language, always forget that the artifice we create is generated by our calculation.",
+                
+                "And our calculations are not the sacred pattern of the <i>physis</i>.",
+
+                "allWhite",
+
+                "In the name of diffraction, let’s declare:",
+             
+                "11 4 150 30",
+                "rWave",
+                "Chaotic multiplication of languages.",
+                "Holistic understanding of existence.",
+                "Violent meditation for essence.",
+                "Blasphemy as self-celebration.",
+                "rWave_stop",
+                "The quest for or generation of the primal sense, or Unity, or Aleph.",
+                "Demarkation of that aforementioned diagonal, a symptom of conscious irrationality.",
+
+
+                "allBlack",
+                "11 9 150 20",
+                "33",
+
+                
+                "Numbers, like the alphabet, do not exist",
+
+                "Except as symbols of ink or pixels.",
+
+                "For there is no alphanumeric outside of the ink or pixels themselves.",
+                
+                "Their non-manifestation lies in the mystery of the written.",
+                
+                "And their manifestation is nothing but being determined by the written.",
+
+                "And the reading of the written is what makes us say one, two, three, four.",
+
+                "11 6 160 10",
+
+                "bobobo",
+
+                "Point, Circle, Triangle, Square.",
+
+                "Metaphors that encapsulate the mystery of the whole.",
+
+                "There are relationships I dare to name as sacred that exist beyond human comprehension.",
+
+
+                "bobobo_stop",
+
+
+                "allWhite",
+                "sequence", //TODO
+
+                "11 2 155 5",
+
+                "The mathematical relationship is the tool to relate one thing to another, making them one and two together",
+                
+                "exactly as any progression of similar figures demonstrates, which are a multitude, yet, due to the invariance of form, one.",
+
+                "allBlack",
+                "sequence_stop",
+
+                "Without knowledge of number, Plato said, we would be deprived of the possibility of knowing the real, of which we could have only perceptions and memories.",
+                
+                "Numerical relationships as the threads of a net.",
+
+                "11 8 170 15",
+
+                "Contemporary hegemony has appropriated numbers, making them pure data so that everything fits into a production machine.",
+
+                "But originally, Vedic mathematicians used the numerical alphabet to establish a connection with the divine.",
+
+                "allWhite",
+                "agni",  
+
+                "The altars of Agni had complex geometric shapes and had to be magnified 100 times without changing their form.",
+
+                "allBlack",
+                "agni_stop",  // TODO
+
+                "11 12 60 5",
+
+                "In Greece, it sometimes happened that the enlargement of a figure was ordered by a God, such as the doubling of a cube.",
+
+                "It's not simple: the enlargement of the figure implies dealing with irrational numbers, like the ratio between a circumference and its diameter,",
+                "or the diagonal of a square.",
+
+                "Irrational numbers are non-integer numbers, vulgarly: numbers with decimals that have no end.",
+
+                "The diagonal we are seeking is as irrational as the number that describes it.",
+
+                "allWhite",
+                "allBlack",
+            
+                "rWave",
+
+                "Mathematics is the principle of a connection between the conceptions of the metaphisic and of nature.",
+
+                "11 8 70 25",
+
+                "It's one of the models for dialoguing with the unknown that surrounds us, and it's a fantastic connector between metaphysics and the tangible universe.",
+
+                "We can consider ourselves generative deities when we write and speak alphanumeric",
+
+                "because the ordered arrangement of certain letters or numbers creates separate worlds.",
+
+                "Yet even total disorder creates separate worlds.",
+
+                "The question of understanding is the quest.",
+
+                "Understanding functions and grasping constants and variables.",
+
+                "Cosmos are algorithms, governed by rules that follow an order or disorder,",
+                
+                "and eventually trigger a result where another algorithm takes over.",
+                
+                "11 7 170 20",
+
+                "But the only sense we can give to existence is when we tend to create chaos. ",
+                
+                "So let's embrace it.",
+
+                "33stop",
+
+                
+                "Logic falls, relationships no longer exist, indeed, we decide not to consider them.",
+
+                "These sounds are random frequencies, inaccurate according to the history of Western music.",
+               
+                "But even randomness is not random.",
+
+                "We have innate biases, biases that make us choose or not choose <i>randomly<i>",
+
+                "and these sounds are produced by machines we created that generate randomness.",
+
+                "And since we are the inventors of these machines, we can only project our biases onto them.",
+
+                "Chaos is perhaps just a pure illusion.",
+                
+                "11 4 300 5",
+
+                "Perhaps is a <i>battle against windmills</i> the disenchantment of any possible algorithm.",
+
+                "But we can appropriate the devices and the images they create to tend towards the desacralisation of order.",
+
+                "allWhite",
+                "allBlack",
+
+                "If we understand reality as a stage, the search for what is beyond it is a secret.",
+
+                "We are not given to know what happens when the actresses and actors go behind the scenes.",
+
+                "Trapped in technical and universal language, we evoke catastrophe.",
+
+                "rWave_stop",
+
+                "Let dreams be fuel, let utopia be tinder.",
+
+                "On our stage, the backdrop will change, the landscape will be altered, and the fragility of reality is laid bare.",
+
+            
+
+                "What was taken for granted in our reality is resigned.",
+
+                "While waiting for the void to be filled, a new cosmology, a new order will arise.",
+
+                "The headache generated by understanding how to alter existence is certainly amplified by the search for essence.",
+
+                "Let's imagine reality as an interweaving of essence and existence, like warp and weft,",
+
+                "and the event of their undoing requires a weaver capable of interweaving the two back together,",
+            
+                "regardless of the specific shapes and colors each of them can take.",
+
+                "Let us shout wizards! This is what we are.",
+
+                "Weavers of the inexpressible, lovers of that unpronounceable breath of life.",
+
+                "allWhite",
+                "allBlack",
+
+                "The essence of total nature, of the <i>physis</i>, of the divine, can possibly be expressed with the number 1.",
+
+                "Numbers are nothing but the infinite variation of the one.",
+
+                "And one is what we configure as the minimum, as a point, as the beginning of the ray of life.",
+
+                "One is independent, but everything else depends on one.",
+                
+                "sine",
+                "11 12 120 25",
+                "00 circle",
+
+                "The center of the circle obviously represents unity, and the circumference, composed of contiguous points, expresses the concept of multiplicity.",
+
+                "And the rays of the circle, starting from the center, from unity, to end at one of the points on the circumference, ",
+                
+                "are the link between one and the other, between unity in itself and the computed manifestation of multiplicity.",
+
+                "The center that gives rise to the circumference does not depend on it: it always remains one,",
+                
+                "intolerable in its essence regardless of the existence of the circumference.",
+
+                "The existence of the center is autonomous because the circle only exists in the idea of ​​the one who draws it and does not exist actually.",
+
+                "00 circle_stop",
+                "22 TRIG",
+
+                "But if we understand that circle in motion, we can create a bridge between the purest idea and the purest tangibility.",
+
+                "The creation of sine waves, a sign of sonic perfection.",
+
+                "But as soon as the size of the circle changes, instability takes over, and another microcosm is generated.",
+
+                "sineStop",
+                "sineIllegit",
+
+                "Newton proposed the concept of fluxion.",
+
+                "<i>Fluens est quod continua mutationem auger vel diminuitur</i><br><i>Fluxio est celeritas mutationes illius</i>",
+
+                "Fluens is what increases or decreases due to continuous motion<br><br>Fluxio is the speed of this movement",
+
+                "Growing and diminishing jeopardizes the essence of things, but for the entire time a certain relationship lasts, the total nature of a thing remains unchanged.",
+
+                "22stop",
+                "sineStop",
+
+                "Resignation as redesign of our generated signs: it's the essence of labor that is wrong, no matter how many relationships we assign to it.",
+
+                "allWhite",
+                "allBlack",
+
+                "Growth, like decay, can be limitless.",
+
+                "Without bounds, we go in the direction of the infinitely large or small. Thus, we plunge into the indefinable, into the <i>apeiron</i>.",
+
+                
+
+                "Rhythm is needed! Incongruous rhythm is needed!",
+
+                "11 3 240 20",
+                "11 6 120 30",
+
+                "Understanding inconsistency is also needed.",
+
+                "Conceiving the sacrifice of essence is needed.",
+
+                "Let's steal language from the gods, and thus generate ideas that imitate goddesses, sacrificing them.",
+
+                "Everything is right, everything is correct.",
+                "It's the words that are not enough.",
+
+                "allWhite",
+                "allBlack",
+                "<i>Mammes, Laher</i>",
+                "allWhite",
+                "allBlack",
+            ]
+            }
+
+
+
+            const scales = [
+            {
+                    name: 'A Phrygian',
+                    notes: ["A", "Bb", "C", "D", "Fb", "G"]
+                },
+                {
+                    name: 'Bb Dorian',
+                    notes: ["Bb", "C", "Db", "Eb", "F", "G"]
+                },
+                {
+                    name: 'C Aeolian (Natural Minor)',
+                    notes: ["C", "D", "E", "F", "G", "A"]
+                },
+                {
+                    name: 'D Lydian',
+                    notes: ["D", "E", "F#", "G", "A", "Bb"]
+                },
+                {
+                    name: 'E Mixolydian',
+                    notes: ["E", "F#", "G#", "A", "B", "C"]
+                },
+                {
+                    name: 'F Ionian (Major)',
+                    notes: ["F", "G", "A", "Bb", "C", "D"]
+                },
+                {
+                    name: 'G Locrian',
+                    notes: ["G", "A", "B", "C", "D", "E"]
+                },
+                {
+                    name: 'Ab Harmonic Minor',
+                    notes: ["Ab", "Bb", "C", "Db", "Eb", "F"]
+                }
+            
+            ];
+
+            function randomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+
+        const socket = new WebSocket('ws://'+ip+':3000');
+
+
+
+        let rythms
+        let looped
+        function poly(max, len){
+            // Function to generate a random note (null or a random note)
+            function randomNote() {
+            const notes = [  null, 'C1',null, 'D1','E1', null, null,'F1',null,  'G1',null, , 'A1', null,'B1'];
+            const randomIndex = Math.floor(Math.random() * notes.length);
+            return notes[randomIndex];
+            }
+
+            looped = Math.floor(len);
+            let drum
+
+            // Function to generate a new randomRhythms object
+            function generateRandomRhythms() {
+                return {
+                    kick: Array.from({ length: Math.floor(Math.random() * max) + 2 }, () => randomNote()),
+                    snare: Array.from({ length: Math.floor(Math.random() * max) + 2 }, () => randomNote()),
+                    hiHat: Array.from({ length: Math.floor(Math.random() * max) + 2 }, () => randomNote()),
+                    tom1: Array.from({ length: Math.floor(Math.random() * max) + 2 }, () => randomNote()),
+                    tom2: Array.from({ length: Math.floor(Math.random() * max) + 2 }, () => randomNote()),
+                    tom3: Array.from({ length: Math.floor(Math.random() * max) + 2 }, () => randomNote()),
+                    crash: Array.from({ length: Math.floor(Math.random() * max) + 2 }, () => randomNote()),
+                };
+            }
+
+            // Generate a new randomRhythms object
+            rhythms = generateRandomRhythms();
+
+        }
+        
+        let randomScalePoly 
+
+        socket.addEventListener('open', (event) => {
+            let x = -1
+            let y = -1
+            document.getElementById('forward').addEventListener("click", function(){
+                x++
+                if (en['regia'][x] == 'sequence'){
+                    socket.send("sequ")
+                } else if (en['regia'][x] == 'sequence_stop'){
+                   socket.send("sequ_stop")
+                } else  if (en['regia'][x] == 'agni'){
+                    socket.send("agni")
+                } else if (en['regia'][x] == 'agni_stop'){
+                    socket.send("agni_stop")
+                } else if (en['regia'][x] == 'bobobo'){
+                    socket.send("onetwothreefour")
+                } else if (en['regia'][x] == 'bobobo_stop'){
+                    socket.send("onetwothreefour_stop")
+                } else if (en['regia'][x]=='allWhite'){
+                    socket.send('allWhite')
+                } else if (en['regia'][x]=='allBlack'){
+                    socket.send('allBlack')
+                } else if (en['regia'][x].startsWith('00')){ // MAKE CIRCLE APPEAR
+                    socket.send('circle')
+                    if (en['regia'][x].endsWith('stop')){
+                        socket.send('circle_stop')
+                    }
+                } else if (en['regia'][x].startsWith('22')){ // MAKE TRIGONOMETRY APPEAR
+                    socket.send('trig')
+                    if (en['regia'][x].endsWith('stop')){
+                        socket.send('trig_stop')
+                    }
+                } 
+                else if (en['regia'][x].startsWith('11')){ // START POLYRHYTHM
+                        let vars = en['regia'][x].split(" ")
+                        let max = vars[1]
+                        let tempo = vars[2]
+                        let len = vars[3]
+                        console.log(max)
+                        poly(max,len)
+                        if(looped){
+                            socket.send(JSON.stringify({"rhythms":rhythms,"looped":looped, "tempo":tempo}))
+                        }
+                        // for (let index = 0; index < 16; index++) {
+                        //     setTimeout(() => {
+                        //         poly(max,len)
+
+                        //         if(looped){
+                        //             socket.send(JSON.stringify({"rhythms":rhythms,"looped":looped, "tempo":tempo}))
+                        //         }
+                        //     }, 1000);
+                        // }
+                   
+                } else if (en['regia'][x].startsWith('33')){ // START POLYSYNTH
+      
+                    function sendPolys(scale, id){
+                        console.log('polys')
+                        socket.send(JSON.stringify({'scale':scale, 'kind': 'polys', 'id': id}))
+                    }
+                    
+                    let scale = randomInt(0,scales.length)
+                        scale = scales[scale].notes
+                        let tPoly = 0
+                        let id = randomInt(0,8)
+
+                        sendPolys(scale,id)
+
+                        if(en['regia'][x].endsWith('stop')){
+                            console.log('be')
+                            clearInterval(randomScalePoly);
+                        } else {
+                            randomScalePoly = setInterval(() => {
+                            id = randomInt(0,8)
+                            console.log(id)
+                            sendPolys(scale,id)
+                       }, 3000);
+                        }
+                        
+
+                       
+                    
+                } else if (en['regia'][x] == "sine"){
+                    socket.send(JSON.stringify({'kind':'sine', 'type': 'legit'})) // else illegit -> edit sin in %2
+                }else if (en['regia'][x] == "sineStop"){
+                    socket.send(JSON.stringify({'kind':'sineStop'})) // else illegit -> edit sin in %2
+                }else if (en['regia'][x] == "sineIllegit"){
+                    socket.send(JSON.stringify({'kind':'sine','type': 'illegit'})) // else illegit -> edit sin in %2
+
+                }else if (en['regia'][x].startsWith('rWave')){
+                    let pick = randomInt(0,8)
+                    let fq = randomInt(100,500)
+                    let dur = randomInt(1,2)
+
+                    function sendRWave(pick,fq,fqfm,dur){
+                        socket.send(JSON.stringify({'id':pick,'fq':fq,'fqfm':fqfm,'duration': dur, 'kind': 'rWave'})) // else illegit -> edit sin in %2
+                    }
+
+                    if(en['regia'][x].endsWith('top')){
+                            clearInterval(trigs);
+                        } else {
+                            
+                            trigs = setInterval(() => {
+                                pick = randomInt(0,8)
+                                fq = randomInt(100,500)
+                                fqfm = randomInt(fq ,fq +100)
+                                dur = randomInt(1,2)
+                                console.log(pick)
+                                sendRWave(pick,fq,fqfm,dur)
+                       }, 2000);
+                        }
+
+                }else { // JUST SEND THE TEXT KEY
+                    y++
+                    console.log(y)
+                    socket.send(y)
+                    document.getElementById('container').innerHTML = en['regia'][x]
+                    document.getElementById('containerAfter').innerHTML = en['regia'][x+1]
+                   
+                }
+                
+            })
+
+            // document.getElementById('bck').addEventListener("click", function(){
+            //     x--
+            //     socket.send(en['regia'][x])
+            //     document.getElementById('container').innerHTML = en['regia'][x]
+            // })
+            
+            
+            
+            console.log('WebSocket connection opened');
+            
+        });
+
+        socket.addEventListener('message', (event) => {
+            console.log('Received: ' + event.data);
+        });
+
+
+
+    </script>
+</body>
+</html>
